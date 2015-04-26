@@ -6,6 +6,7 @@ export default function(router, options) {
   var cartPath     = options['cartPath']     || 'cart';
   var productsPath = options['productsPath'] || 'products';
   var taxonomiesPath = options['taxonomiesPath'] || 'taxonomies';
+  var taxonsPath = options['taxonsPath'] || 'taxons';
   var checkoutPath = options['checkoutPath'] || 'checkout';
 
   router.resource('spree', { path: mountPath }, function() {
@@ -15,9 +16,13 @@ export default function(router, options) {
       this.route('index', { path: '/' });
       this.route('show', { path: '/:slug' });
     });
-    
+
     router.resource('spree.taxonomies', { path: mountPath + '/' + taxonomiesPath },function() {
       this.route('index', { path: '/' });
+    });
+
+    router.resource('spree.taxons', { path: mountPath + '/' + taxonsPath },function() {
+      this.route('index', { path: '/*taxon_id' });
     });
 
     router.resource('spree.checkout', { path: mountPath + '/' + checkoutPath },function() {
